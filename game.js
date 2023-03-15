@@ -39,7 +39,7 @@ const Game = {
       // lo puedo poner tmb en cada js haciendo init en cada uno para poder gestionar el tiempo individualmente?
 
       this.framesCounter++;
-      if (this.framesCounter > 3000) {
+      if (this.framesCounter > 5000) {
         this.framesCounter = 0;
       }
 
@@ -60,7 +60,7 @@ const Game = {
   reset() {
     this.background = new Background(this.ctx, this.width, this.height);
 
-    // this.player = new Player(this.ctx, this.width, this.height, this.keys);
+    this.player = new Player(this.ctx, this.width, this.height, this.keys);
 
     // this.obstacles = [];
   },
@@ -68,7 +68,7 @@ const Game = {
   drawAll() {
     this.background.draw();
 
-    // this.player.draw(this.framesCounter);
+    this.player.draw(this.framesCounter);
 
     // this.obstacles.forEach(function (obs) {
     //     obs.draw();
