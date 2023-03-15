@@ -11,8 +11,12 @@ const Game = {
   platforms: [],
 
   keys: {
-    TOP: 38,
-    SPACE: 32,
+    jump: 38,
+    shoot: 32,
+    rigth: 39,
+    left: 37,
+    down: 40,
+    target: 90,
   },
 
   init() {

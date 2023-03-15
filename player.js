@@ -17,7 +17,7 @@ class Player {
     this.posY = this.gameHeight - this.height * 1.5; //pegado al suelo
     this.posY0 = this.posY;
 
-    this.keys = keys; 
+    this.keys = keys;
 
     // this.bullets = [];
 
@@ -52,31 +52,54 @@ class Player {
   setListeners() {
     document.addEventListener("keydown", (e) => {
       switch (e.keyCode) {
-        case this.keys.TOP:
+        case this.keys.jump:
           if (this.posY >= this.posY0) {
             this.jump();
           }
           break;
-        // case this.keys.SPACE:
-        //   this.shoot();
-        //   break;
+        case this.keys.space:
+          this.shoot();
+          break;
+        case this.keys.rigth:
+          this.moveRigth();
+          break;
+        case this.keys.left:
+          this.moveLeft();
+          break;
+        case this.keys.target:
+          this.target();
+          break;
       }
     });
   }
 
-  //   shoot() {
-  //     // Add new Bullet to the bullets array
-  //     this.bullets.push(
-  //       new Bullets(
-  //         this.ctx,
-  //         this.posX,
-  //         this.posY,
-  //         this.posY0,
-  //         this.width,
-  //         this.height
-  //       )
-  //     );
-  //   }
+  shoot() {
+    // Add new Bullet to the bullets array
+    this.bullets.push(
+      new Bullets(
+        this.ctx,
+        this.posX,
+        this.posY,
+        this.posY0,
+        this.width,
+        this.height
+      )
+    );
+  }
+  moveRigth() {
+    this.posX += 20;
+  }
+
+  moveLeft() {
+    this.posX -= 20;
+  }
+
+  jump() {
+    this.posY -= 80;
+    this.velY -= 8;
+  }
+
+  target() {}
 
   //   clearBullets() {
   //     // Clear bullets (.filter 👀)
@@ -106,10 +129,7 @@ class Player {
     }
   }
 
-  jump() {
-    this.posY -= 40;
-    this.velY -= 8;
-  } // aqui no tendría que llamar a move???
+  // aqui no tendría que llamar a move???
 }
 // generar ataque
 // recibir daño, sumar vida, ¿agacharse?
