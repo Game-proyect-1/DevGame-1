@@ -5,17 +5,19 @@ class Player {
     this.gameWidth = gameW;
     this.gameHeight = gameH;
 
-    this.width = 100;
-    this.height = 100;
+    this.width = 150;
+    this.height = 150;
 
     this.image = new Image();
-    this.image.src = "./img/7887096.jpg";
-    this.image.frames = 5;
+    this.image.src = "./img/sprites/2/Idle.png";
+    this.image.frames = 4;
     this.image.framesIndex = 0;
 
     this.posX = this.gameWidth - this.width * 1.5;
     this.posY = this.gameHeight - this.height * 1.5; //pegado al suelo
     this.posY0 = this.posY;
+    this.isMovingRight = false;
+    this.isMovingLeft = false;
 
     this.keys = keys;
 
@@ -23,6 +25,7 @@ class Player {
 
     this.setListeners();
     this.velY = 2;
+    this.velX = 8;
     this.gravity = 0.6;
   }
 
@@ -71,6 +74,17 @@ class Player {
           break;
       }
     });
+
+    document.addEventListener("keyup", (e) => {
+      switch (e.keyCode) {
+        case this.keys.rigth:
+          this.stop();
+          break;
+        case this.keys.left:
+          this.stop();
+          break;
+      }
+    });
   }
 
   shoot() {
@@ -86,12 +100,21 @@ class Player {
       )
     );
   }
+
   moveRigth() {
-    this.posX += 20;
+    // refactorizar en una sola función
+    this.isMovingRight = true;
+    this.image.src = "./img/sprites/2/Walk.png";
+    this.image.frames = 6;
+
+    //this.posX += 80;
   }
 
   moveLeft() {
-    this.posX -= 20;
+    this.isMovingLeft = true;
+    this.image.src = "./img/sprites/2/Walk.png";
+    this.image.frames = 6;
+    //this.posX -= 80;
   }
 
   jump() {
@@ -99,6 +122,12 @@ class Player {
     this.velY -= 8;
   }
 
+  stop() {
+    this.isMovingRight = false;
+    this.isMovingLeft = false;
+    this.image.src = "./img/sprites/2/Idle.png";
+    this.image.frames = 4;
+  }
   target() {}
 
   //   clearBullets() {
@@ -127,6 +156,14 @@ class Player {
       this.posY = this.posY0;
       this.velY = 1;
     }
+    if (this.isMovingRight && this.width + this.posX <= this.gameWidth) {
+      this.posX += this.velX;
+    }
+    if (this.isMovingLeft && this.posX + this.width / 2.5 > 0) {
+      //revisar el width /2.5. Por que??
+      this.posX -= this.velX;
+    }
+    
   }
 
   // aqui no tendría que llamar a move???
@@ -134,4 +171,4 @@ class Player {
 // generar ataque
 // recibir daño, sumar vida, ¿agacharse?
 
-// cuando se de a la Z no se mueva sino que apunte .
+// cuando se de a la Z no se mueva sino que apunte.

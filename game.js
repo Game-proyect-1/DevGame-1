@@ -54,10 +54,15 @@ const Game = {
       // this.generateObstacles();
 
       // this.clearObstacles();
-
-      // if (this.isCollision()) {
-      //     this.gameOver();
-      // }
+      console.log(
+        "enemyPosX:" + this.enemy.posX + ", playerPosX:" + this.player.posX
+      );
+      console.log(
+        "enemyPosY:" + this.enemy.posY + ", playerPosY:" + this.player.posY
+      );
+      if (this.isCollision()) {
+        this.gameOver();
+      }
     }, 1000 / this.FPS);
   },
 
@@ -66,13 +71,18 @@ const Game = {
 
     this.player = new Player(this.ctx, this.width, this.height, this.keys);
 
-    // this.obstacles = [];
+    this.enemy = new Enemy(this.ctx, this.width, this.height);
+
+    // this.platform = new Platform(this.ctx, this.gameWidth, this.playerPosY0, this.playerHeight0);
   },
 
   drawAll() {
     this.background.draw();
 
     this.player.draw(this.framesCounter);
+    this.enemy.draw(this.framesCounter);
+
+    // this.platform.draw();
 
     // this.obstacles.forEach(function (obs) {
     //     obs.draw();
@@ -83,7 +93,22 @@ const Game = {
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
   },
+
+  isCollision() {
+    return (
+      this.player.posX - this.enemy.posX <= 50 &&
+      this.enemy.posX - this.player.posX <= 50 &&
+      this.player.posY >= this.enemy.posY
+    );
+    // recuerda que el sprite es la imagen más un espacio en blanco alrededor, por eso hay que cuadrar para que el choque sea perfecto y no se quede a unos pixeles
+  },
+
+  gameOver() {
+    // .clearInterval
+    clearInterval(this.interval);
+  },
 };
+
 // generar obstaculos
 // borrar obstaculos
 // colisión ,

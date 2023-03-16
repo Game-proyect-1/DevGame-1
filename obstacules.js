@@ -1,3 +1,0 @@
-// draw(Usar frameCounter)
-// clear
-
