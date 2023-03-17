@@ -8,7 +8,7 @@ const Game = {
   background: undefined,
   player: undefined,
   enemy: undefined, // si luego queremos más aleatoriosdebería ser un array?
-  platforms: [],
+  // platforms: [],
 
   keys: {
     jump: 38,
@@ -54,12 +54,7 @@ const Game = {
       // this.generateObstacles();
 
       // this.clearObstacles();
-      console.log(
-        "enemyPosX:" + this.enemy.posX + ", playerPosX:" + this.player.posX
-      );
-      console.log(
-        "enemyPosY:" + this.enemy.posY + ", playerPosY:" + this.player.posY
-      );
+
       if (this.isCollision()) {
         this.gameOver();
       }
@@ -73,6 +68,15 @@ const Game = {
 
     this.enemy = new Enemy(this.ctx, this.width, this.height);
 
+    this.bullets = new Bullets(
+      this.ctx,
+      this.player.posX,
+      this.player.posY,
+      this.player.posY,
+      this.player.width,
+      this.player.height
+    );
+
     // this.platform = new Platform(this.ctx, this.gameWidth, this.playerPosY0, this.playerHeight0);
   },
 
@@ -81,6 +85,7 @@ const Game = {
 
     this.player.draw(this.framesCounter);
     this.enemy.draw(this.framesCounter);
+    this.bullets.draw();
 
     // this.platform.draw();
 

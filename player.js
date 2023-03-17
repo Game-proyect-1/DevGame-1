@@ -21,7 +21,7 @@ class Player {
 
     this.keys = keys;
 
-    // this.bullets = [];
+    this.bullets = [];
 
     this.setListeners();
     this.velY = 2;
@@ -46,11 +46,11 @@ class Player {
 
     this.move();
 
-    // this.bullets.forEach(function (bullet) {
-    //   bullet.draw();
-    // });
+    this.bullets.forEach(function (bullet) {
+      bullet.draw();
+    });
 
-    //     this.clearBullets();
+    this.clearBullets();
   }
   setListeners() {
     document.addEventListener("keydown", (e) => {
@@ -99,6 +99,12 @@ class Player {
         this.height
       )
     );
+  }
+  clearBullets() {
+    // Clear bullets (.filter 👀)
+    this.bullets = this.bullets.filter((bullet) => {
+      return bullet.posX <= this.gameWidth;
+    });
   }
 
   moveRigth() {
@@ -163,7 +169,6 @@ class Player {
       //revisar el width /2.5. Por que??
       this.posX -= this.velX;
     }
-    
   }
 
   // aqui no tendría que llamar a move???
