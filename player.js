@@ -60,7 +60,7 @@ class Player {
             this.jump();
           }
           break;
-        case this.keys.space:
+        case this.keys.shoot:
           this.shoot();
           break;
         case this.keys.rigth:
@@ -88,17 +88,19 @@ class Player {
   }
 
   shoot() {
+    console.log("acabod ep ulsar espacio");
     // Add new Bullet to the bullets array
-    this.bullets.push(
-      new Bullets(
-        this.ctx,
-        this.posX,
-        this.posY,
-        this.posY0,
-        this.width,
-        this.height
-      )
+    let bullet = new Bullets(
+      this.ctx,
+      this.posX,
+      this.posY,
+      this.posY0,
+      this.width,
+      this.height
     );
+    this.bullets.push(bullet);
+
+    bullet.draw();
   }
   clearBullets() {
     // Clear bullets (.filter 👀)

@@ -40,8 +40,6 @@ const Game = {
     this.reset();
 
     this.interval = setInterval(() => {
-      // lo puedo poner tmb en cada js haciendo init en cada uno para poder gestionar el tiempo individualmente?
-
       this.framesCounter++;
       if (this.framesCounter > 5000) {
         this.framesCounter = 0;
@@ -68,14 +66,14 @@ const Game = {
 
     this.enemy = new Enemy(this.ctx, this.width, this.height);
 
-    this.bullets = new Bullets(
-      this.ctx,
-      this.player.posX,
-      this.player.posY,
-      this.player.posY,
-      this.player.width,
-      this.player.height
-    );
+    // this.bullets = new Bullets(
+    //   this.ctx,
+    //   this.player.posX,
+    //   this.player.posY,
+    //   this.player.posY,
+    //   this.player.width,
+    //   this.player.height
+    // );
 
     // this.platform = new Platform(this.ctx, this.gameWidth, this.playerPosY0, this.playerHeight0);
   },
@@ -85,13 +83,18 @@ const Game = {
 
     this.player.draw(this.framesCounter);
     this.enemy.draw(this.framesCounter);
-    this.bullets.draw();
+    // this.bullets.draw();
 
     // this.platform.draw();
 
-    // this.obstacles.forEach(function (obs) {
-    //     obs.draw();
-    // })
+    this.player.bullets.map((bullet) => {
+      console.log(bullet.isCollision(this.enemy.posX, this.enemy.posY));
+      if (bullet.isCollision(this.enemy.posX, this.enemy.posY)) {
+        bullet.draw(this.framesCounter);
+      }
+      if (this.isCollision) {
+      }
+    });
     //si hago de enemy un array, iria tmb aquí con un for Each
   },
 
@@ -105,6 +108,7 @@ const Game = {
       this.enemy.posX - this.player.posX <= 50 &&
       this.player.posY >= this.enemy.posY
     );
+
     // recuerda que el sprite es la imagen más un espacio en blanco alrededor, por eso hay que cuadrar para que el choque sea perfecto y no se quede a unos pixeles
   },
 

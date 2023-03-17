@@ -17,19 +17,35 @@ class Bullets {
 
     this.radius = 10;
 
-    this.velX = 10;
-    this.velY = 1;
+    this.velX = 5;
+    this.velY = 1.5;
 
     this.gravity = 1;
+    this.width = 50;
+    this.height = 50;
+
+    this.image = new Image();
+    this.image.src = "./img/sprites/2/fire.png";
+    this.image.frames = 6;
+    this.image.framesIndex = 0;
   }
 
-  draw() {
-    this.ctx.beginPath();
-    // .arc(posX, posY, radius, startAngle, endAngle) + .fill
-    this.ctx.arc(this.posX, this.posY, this.radius, 0, Math.PI * 2);
-    this.ctx.fill();
-    this.ctx.closePath();
-    this.move();
+  draw(framesCounter) {
+    
+      this.ctx.drawImage(
+        this.image,
+        (this.image.width / this.image.frames) * this.image.framesIndex,
+        0,
+        this.image.width / this.image.frames,
+        this.image.height,
+        this.posX,
+        this.posY,
+        this.width,
+        this.height
+      );
+      this.animate(framesCounter);
+      this.move();
+
   }
 
   move() {
@@ -42,5 +58,25 @@ class Bullets {
       // Rebote
       this.velY *= -1;
     }
+  }
+
+  animate(framesCounter) {
+    if (framesCounter % 5 == 0) {
+      this.image.framesIndex++;
+    }
+
+    if (this.image.framesIndex >= this.image.frames) {
+      this.image.framesIndex = 0;
+    }
+  }
+
+  isCollision(posX, posY) {
+    return (
+      this.posX - posX <= 50 &&
+      posX - this.posX <= 50 &&
+      this.posY >= posY
+    );
+
+    // recuerda que el sprite es la imagen más un espacio en blanco alrededor, por eso hay que cuadrar para que el choque sea perfecto y no se quede a unos pixeles
   }
 }
