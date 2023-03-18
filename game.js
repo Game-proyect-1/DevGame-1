@@ -88,7 +88,6 @@ const Game = {
     this.player.bullets.map((bullet, index) => {
       if (bullet.isCollision(this.enemy.posX, this.enemy.posY)) {
         this.player.bullets.splice(index, 1);
-        
       }
       //colisión console.log bullet, enemy
       // if (!bullet.isCollision(this.enemy.posX, this.enemy.posY)) {
