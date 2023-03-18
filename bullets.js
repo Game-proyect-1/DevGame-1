@@ -31,21 +31,19 @@ class Bullets {
   }
 
   draw(framesCounter) {
-    
-      this.ctx.drawImage(
-        this.image,
-        (this.image.width / this.image.frames) * this.image.framesIndex,
-        0,
-        this.image.width / this.image.frames,
-        this.image.height,
-        this.posX,
-        this.posY,
-        this.width,
-        this.height
-      );
-      this.animate(framesCounter);
-      this.move();
-
+    this.ctx.drawImage(
+      this.image,
+      (this.image.width / this.image.frames) * this.image.framesIndex,
+      0,
+      this.image.width / this.image.frames,
+      this.image.height,
+      this.posX,
+      this.posY,
+      this.width,
+      this.height
+    );
+    this.animate(framesCounter);
+    this.move();
   }
 
   move() {
@@ -70,13 +68,9 @@ class Bullets {
     }
   }
 
-  isCollision(posX, posY) {
+  isCollision(posX, posY) { //colisión bullet que paso a game
     return (
-      this.posX - posX <= 50 &&
-      posX - this.posX <= 50 &&
-      this.posY >= posY
+      this.posX - posX <= 50 && posX - this.posX <= 50 && this.posY >= posY
     );
-
-    // recuerda que el sprite es la imagen más un espacio en blanco alrededor, por eso hay que cuadrar para que el choque sea perfecto y no se quede a unos pixeles
   }
 }
