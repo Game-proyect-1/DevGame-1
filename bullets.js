@@ -20,7 +20,7 @@ class Bullets {
     this.velX = 5;
     this.velY = 1.5;
 
-    this.gravity = 1;
+    this.gravity = 0.3;
     this.width = 50;
     this.height = 50;
 
@@ -56,8 +56,9 @@ class Bullets {
 
     if (this.posY >= this.playerPosY0 + this.playerHeight) {
       // Rebote
-      this.velY *= -1;
+      this.velY *= 0;
     }
+
   }
 
   animate(framesCounter) {

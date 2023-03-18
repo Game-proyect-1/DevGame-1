@@ -12,7 +12,7 @@ class Background {
 
     // this.velX = 2; // mejor menos?
   }
-
+  
   draw() {
     this.ctx.drawImage(
       this.image,

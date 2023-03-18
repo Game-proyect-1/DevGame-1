@@ -7,8 +7,8 @@ const Game = {
   framesCounter: 0,
   background: undefined,
   player: undefined,
-  enemy: undefined, // si luego queremos más aleatoriosdebería ser un array?
-  // platforms: [],
+  enemy: undefined, // si luego queremos más aleatorios debería ser un array?
+  platform: undefined,
 
   keys: {
     jump: 38,
@@ -69,14 +69,15 @@ const Game = {
     // this.bullets = new Bullets(
     //   this.ctx,
     //   this.player.posX,
-    //   this.player.posY,
+      // this.player.posY,
     //   this.player.posY,
     //   this.player.width,
     //   this.player.height
     // );
 
-    // this.platform = new Platform(this.ctx, this.gameWidth, this.playerPosY0, this.playerHeight0);
-  },
+  this.platform = new Platform(this.ctx, this.gameWidth, this.playerPosY0, this.playerHeight0);
+  
+},
 
   drawAll() {
     this.background.draw();
@@ -85,7 +86,7 @@ const Game = {
     this.enemy.draw(this.framesCounter);
     // this.bullets.draw();
 
-    // this.platform.draw();
+    this.platform.draw();
 
     this.player.bullets.map((bullet) => {
       console.log(bullet.isCollision(this.enemy.posX, this.enemy.posY));
