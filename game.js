@@ -7,7 +7,7 @@ const Game = {
   framesCounter: 0,
   background: undefined,
   player: undefined,
-  enemy: undefined, // si luego queremos más aleatorios debería ser un array?
+  enemy: undefined,
   platform: undefined,
 
   keys: {
@@ -21,7 +21,7 @@ const Game = {
 
   init() {
     this.setContext();
-    this.setDimensions(); //responsive
+    this.setDimensions();
     this.start();
   },
   setContext() {
@@ -57,6 +57,8 @@ const Game = {
         this.gameOver();
       }
     }, 1000 / this.FPS);
+
+    this.clearBullets();
   },
 
   reset() {
@@ -66,18 +68,13 @@ const Game = {
 
     this.enemy = new Enemy(this.ctx, this.width, this.height);
 
-    // this.bullets = new Bullets(
-    //   this.ctx,
-    //   this.player.posX,
-      // this.player.posY,
-    //   this.player.posY,
-    //   this.player.width,
-    //   this.player.height
-    // );
-
-  this.platform = new Platform(this.ctx, this.gameWidth, this.playerPosY0, this.playerHeight0);
-  
-},
+    this.platform = new Platform(
+      this.ctx,
+      this.gameWidth,
+      this.playerPosY0,
+      this.playerHeight0
+    );
+  },
 
   drawAll() {
     this.background.draw();
@@ -88,13 +85,16 @@ const Game = {
 
     this.platform.draw();
 
-    this.player.bullets.map((bullet) => {
-      console.log(bullet.isCollision(this.enemy.posX, this.enemy.posY));
+    this.player.bullets.map((bullet, index) => {
       if (bullet.isCollision(this.enemy.posX, this.enemy.posY)) {
-        bullet.draw(this.framesCounter);
+        this.player.bullets.splice(index, 1);
       }
-      if (this.isCollision) {
-      }
+      //colisión console.log bullet, enemy
+      // if (!bullet.isCollision(this.enemy.posX, this.enemy.posY)) {
+      //   bullet.draw(this.framesCounter);
+      // }
+      // if (this.isCollision) {
+      // }
     });
     //si hago de enemy un array, iria tmb aquí con un for Each
   },
@@ -104,15 +104,22 @@ const Game = {
   },
 
   isCollision() {
+    // colisión player y enemy
     return (
       this.player.posX - this.enemy.posX <= 50 &&
       this.enemy.posX - this.player.posX <= 50 &&
       this.player.posY >= this.enemy.posY
     );
-
-    // recuerda que el sprite es la imagen más un espacio en blanco alrededor, por eso hay que cuadrar para que el choque sea perfecto y no se quede a unos pixeles
   },
 
+  clearBullets() {
+    this.player.bullets = this.player.bullets.map((bullet) => {
+      if (this.isCollision) {
+        let bulletCollision = this.player.bullets.indexOf(bullet);
+        this.player.bullets.splice(bulletCollision, 1);
+      }
+    });
+  },
   gameOver() {
     // .clearInterval
     clearInterval(this.interval);

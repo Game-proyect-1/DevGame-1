@@ -88,8 +88,6 @@ class Player {
   }
 
   shoot() {
-    console.log("acabod ep ulsar espacio");
-    // Add new Bullet to the bullets array
     let bullet = new Bullets(
       this.ctx,
       this.posX,
@@ -99,13 +97,13 @@ class Player {
       this.height
     );
     this.bullets.push(bullet);
-
+    console.log(bullet);
     bullet.draw();
   }
   clearBullets() {
-    // Clear bullets (.filter 👀)
+    console.log(this.bullets);
     this.bullets = this.bullets.filter((bullet) => {
-      return bullet.posX <= this.gameWidth;
+      return bullet.posX >= 0;
     });
   }
 
@@ -172,10 +170,4 @@ class Player {
       this.posX -= this.velX;
     }
   }
-
-  // aqui no tendría que llamar a move???
 }
-// generar ataque
-// recibir daño, sumar vida, ¿agacharse?
-
-// cuando se de a la Z no se mueva sino que apunte.
