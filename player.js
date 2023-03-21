@@ -21,6 +21,8 @@ class Player {
     this.isMovingRight = false;
     this.isMovingLeft = false;
 
+    this.health = 5;
+
     this.keys = keys;
 
     this.bullets = [];
@@ -31,7 +33,7 @@ class Player {
     this.gravity = 1;
   }
 
-  draw(framesCounter) {
+  draw(framesCounter, interval) {
     this.ctx.drawImage(
       this.image,
       (this.image.width / this.image.frames) * this.image.framesIndex,
@@ -46,7 +48,7 @@ class Player {
 
     this.animate(framesCounter);
 
-    this.move();
+    this.move(interval);
 
     this.bullets.forEach(function (bullet) {
       bullet.draw();
@@ -155,7 +157,7 @@ class Player {
     }
   }
 
-  move() {
+  move(interval) {
     if (this.posY < this.posY0) {
       // Está saltando
       this.posY += this.velY;
@@ -179,7 +181,11 @@ class Player {
       this.posY += (this.velY*10);
     }
 
+    if (this.posY + this.height >= window.innerHeight) {
+      clearInterval(interval);
+    }
 
+    
 
   }
 }

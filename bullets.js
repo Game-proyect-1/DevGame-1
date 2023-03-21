@@ -49,7 +49,7 @@ class Bullets {
   move() {
     //Cuanto mayor el número que multiplica, más lejos llega
     this.posX -= this.velX*5;
-    this.posY += this.velY*30;
+    this.posY += this.velY;
 
     this.velY += this.gravity;
 
@@ -61,9 +61,11 @@ class Bullets {
 
       this.velY += this.gravity;
 
-      if (this.posY >= this.playerPosY0 + this.playerHeight) { // Rebote
-        this.velY *= 30;
-      }
+      // if (this.posX >= playerPosX && this.posX <= playerPosX + this.width && this.posY <= )
+
+       if (this.posY >= this.playerPosY0 + this.playerHeight) { // Rebote
+         this.velY *= 30;
+       }
     }
 
   }

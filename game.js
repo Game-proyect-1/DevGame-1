@@ -39,6 +39,7 @@ const Game = {
   start() {
     this.reset();
 
+    //Aquí declaramos interval
     this.interval = setInterval(() => {
       this.framesCounter++;
       if (this.framesCounter > 5000) {
@@ -48,6 +49,7 @@ const Game = {
       this.clear();
 
       this.drawAll();
+      this.checkEnemyStatus()
 
       // this.generateObstacles();
 
@@ -79,7 +81,7 @@ const Game = {
   drawAll() {
     this.background.draw();
 
-    this.player.draw(this.framesCounter);
+    this.player.draw(this.framesCounter, this.interval);
     this.enemy.draw(this.framesCounter);
     // Esto sólo acelera al enemy, no pinta otro --> setInterval(this.enemy.draw(this.framesCounter), 1000);
     // this.bullets.draw();
@@ -126,6 +128,15 @@ const Game = {
     // .clearInterval
     clearInterval(this.interval);
   },
+
+
+  checkEnemyStatus(){
+    if (this.enemy.posY + this.enemy.height >= window.innerHeight) {
+      //Para que pinte otro una vez pasado a undefuned
+      this.enemy = new Enemy(this.ctx, this.width, this.height);
+
+    }
+  }
   
 };
 

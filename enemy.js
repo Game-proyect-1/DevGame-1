@@ -82,5 +82,7 @@ class Enemy {
       this.posY += (this.velY*10);
     }
 
-  }
+    
+
+}
 }
