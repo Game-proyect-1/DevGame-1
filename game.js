@@ -56,7 +56,11 @@ const Game = {
       // this.clearObstacles();
 
       if (this.isCollision()) {
-        this.gameOver();
+        this.player.health--;
+        console.log(this.player.health)
+        if (this.player.health <= 0) {
+          this.gameOver();
+        }
       }
     }, 1000 / this.FPS);
 
@@ -69,6 +73,7 @@ const Game = {
     this.player = new Player(this.ctx, this.width, this.height, this.keys);
 
     this.enemy = new Enemy(this.ctx, this.width, this.height);
+    
 
     this.platform = new Platform(
       this.ctx,
@@ -83,6 +88,7 @@ const Game = {
 
     this.player.draw(this.framesCounter, this.interval);
     this.enemy.draw(this.framesCounter);
+    
     // Esto sólo acelera al enemy, no pinta otro --> setInterval(this.enemy.draw(this.framesCounter), 1000);
     // this.bullets.draw();
 
@@ -108,11 +114,7 @@ const Game = {
 
   isCollision() {
     // colisión player y enemy
-    return (
-      this.player.posX - this.enemy.posX <= 50 &&
-      this.enemy.posX - this.player.posX <= 50 &&
-      this.player.posY >= this.enemy.posY
-    );
+    return (this.player.posX - this.enemy.posX <= 50 && this.enemy.posX - this.player.posX <= 50 && this.player.posY >= this.enemy.posY);
   },
 
   clearBullets() {
@@ -129,21 +131,20 @@ const Game = {
     clearInterval(this.interval);
   },
 
-
+//
   checkEnemyStatus(){
     if (this.enemy.posY + this.enemy.height >= window.innerHeight) {
-      //Para que pinte otro una vez pasado a undefuned
+      //Para que pinte otro una vez pasado a undefined
       this.enemy = new Enemy(this.ctx, this.width, this.height);
 
     }
   }
   
-};
+}
 
 // generar obstaculos
 // borrar obstaculos
-// colisión ,
+
 // contador vida player, sino hay colision y el enemigo sale del ancho de la
 //destructionEnemy
 // podemos meter función , colisión lineas extra arriba por ejemplo
-// game over (  clearInterval(this.intervalId) )

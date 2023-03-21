@@ -21,7 +21,7 @@ class Player {
     this.isMovingRight = false;
     this.isMovingLeft = false;
 
-    this.health = 5;
+    this.health = 150;
 
     this.keys = keys;
 
@@ -34,6 +34,7 @@ class Player {
   }
 
   draw(framesCounter, interval) {
+    //Aquí dibujar la barrita de vida encima del player
     this.ctx.drawImage(
       this.image,
       (this.image.width / this.image.frames) * this.image.framesIndex,
@@ -101,11 +102,9 @@ class Player {
       this.height
     );
     this.bullets.push(bullet);
-    console.log(bullet);
     bullet.draw();
   }
   clearBullets() {
-    console.log(this.bullets);
     this.bullets = this.bullets.filter((bullet) => {
       return bullet.posX >= 0;
     });
@@ -185,7 +184,12 @@ class Player {
       clearInterval(interval);
     }
 
-    
+  }
 
+  takeDamage() {
+    if (this.game.isCollision()) {
+      this.health = this.health - 1;
+      console.log(this.health)
+    }
   }
 }
