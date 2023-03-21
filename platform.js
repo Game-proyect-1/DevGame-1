@@ -1,15 +1,17 @@
 class Platform {
-  constructor(ctx, gameWidth, playerPosY0, playerHeight) {
-    this.ctx = ctx;
-    this.posX = 75;
-    this.posY = 905;
-    this.width = 1700;
-    this.height = 60;
-  }
+   constructor(ctx) {
+     this.ctx = ctx;
+     this.posX = (window.innerWidth*1.1) - window.innerWidth;
+     this.posY = window.innerHeight/1.2;
+     this.width = window.innerWidth/1.3;
+     this.height = window.innerHeight/9;
+   }
   draw() {
     this.ctx.fillRect(this.posX, this.posY, this.width, this.height);
   }
 }
+
+
 
 // Un extends de platform, para disminuir el tamaño de la plataforma.
 
@@ -25,3 +27,6 @@ class HalfPlatform extends Platform {
     this.ctx.fillRect(this.posX, this.posY, this.width, this.height);
   }
 }
+
+const leftGap = (window.innerWidth*1.1) - window.innerWidth;
+const rightGap = (window.innerWidth*1.1) - window.innerWidth + window.innerWidth/1.3;

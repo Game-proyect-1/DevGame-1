@@ -13,8 +13,10 @@ class Player {
     this.image.frames = 4;
     this.image.framesIndex = 0;
 
-    this.posX = this.gameWidth - this.width * 1.5;
-    this.posY = this.gameHeight - this.height * 1.5; //pegado al suelo
+    //Para colocar al jugador encima de la plataforma
+    this.posX = (window.innerWidth - 150)- window.innerWidth/7;
+    this.posY = window.innerHeight/1.2 - 150;
+
     this.posY0 = this.posY;
     this.isMovingRight = false;
     this.isMovingLeft = false;
@@ -26,7 +28,7 @@ class Player {
     this.setListeners();
     this.velY = 2;
     this.velX = 8;
-    this.gravity = 0.6;
+    this.gravity = 1;
   }
 
   draw(framesCounter) {
@@ -159,15 +161,23 @@ class Player {
       this.posY += this.velY;
       this.velY += this.gravity; //velocidad caida y frenado paulatino
     } else {
-      this.posY = this.posY0;
+      // this.posY = this.posY0;
       this.velY = 1;
     }
-    if (this.isMovingRight && this.width + this.posX <= this.gameWidth) {
-      this.posX += this.velX;
-    }
-    if (this.isMovingLeft && this.posX + this.width / 2.5 > 0) {
-      //revisar el width /2.5. Por que??
+     if (this.isMovingRight && this.width + this.posX <= this.gameWidth + this.width) {
+       this.posX += this.velX;
+     }
+
+     if (this.isMovingLeft && this.posX <= this.gameWidth + this.width) {
       this.posX -= this.velX;
     }
+
+    if (this.posX + this.width/1.3 <= leftGap) {
+      this.posY += (this.velY*10);
+    }
+    if (this.posX + this.width/1.3 >= rightGap) {
+      this.posY += (this.velY*10);
+    }
+
   }
 }
