@@ -179,5 +179,7 @@ class Player {
       this.posY += (this.velY*10);
     }
 
+
+
   }
 }

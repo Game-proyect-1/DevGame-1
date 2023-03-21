@@ -81,6 +81,7 @@ const Game = {
 
     this.player.draw(this.framesCounter);
     this.enemy.draw(this.framesCounter);
+    // Esto sólo acelera al enemy, no pinta otro --> setInterval(this.enemy.draw(this.framesCounter), 1000);
     // this.bullets.draw();
 
     this.platform.draw();
@@ -119,11 +120,13 @@ const Game = {
         this.player.bullets.splice(bulletCollision, 1);
       }
     });
+
   },
   gameOver() {
     // .clearInterval
     clearInterval(this.interval);
   },
+  
 };
 
 // generar obstaculos

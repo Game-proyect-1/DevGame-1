@@ -47,8 +47,9 @@ class Bullets {
   }
 
   move() {
-    this.posX -= this.velX;
-    this.posY += this.velY;
+    //Cuanto mayor el número que multiplica, más lejos llega
+    this.posX -= this.velX*5;
+    this.posY += this.velY*30;
 
     this.velY += this.gravity;
 
@@ -61,7 +62,7 @@ class Bullets {
       this.velY += this.gravity;
 
       if (this.posY >= this.playerPosY0 + this.playerHeight) { // Rebote
-        this.velY *= 2;
+        this.velY *= 30;
       }
     }
 
@@ -76,6 +77,9 @@ class Bullets {
       this.image.framesIndex = 0;
     }
   }
+
+  //Intentando borrar las bullets que no estén dentro del canvas
+
 
   isCollision(posX, posY) { //colisión bullet que paso a game
     return (

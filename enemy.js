@@ -60,9 +60,27 @@ class Enemy {
     }
   }
   move() {
+    if (this.posY + this.width < this.posY0) {
+      // Está saltando
+      this.posY += this.velY;
+      this.velY += this.gravity; //velocidad caida y frenado paulatino
+    } else {
+      // this.posY = this.posY0;
+      this.velY = 1;
+    }
+
     this.posX += 1;
-    if (this.posX + this.width >= this.gameWidth) {
+    if (this.posX >= this.gameW + this.width) {
       this.posX = 0;
     }
+
+//Ajustes para que caiga el enemy al salirse de la plataforma
+    if (this.posX + this.width/1.3 <= leftGap) {
+      this.posY += (this.velY*10);
+    }
+    if (this.posX + this.width/1.8 >= rightGap) {
+      this.posY += (this.velY*10);
+    }
+
   }
 }
