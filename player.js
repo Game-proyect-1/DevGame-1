@@ -186,10 +186,11 @@ class Player {
 
   }
 
-  takeDamage() {
-    if (this.game.isCollision()) {
-      this.health = this.health - 1;
-      console.log(this.health)
-    }
-  }
+  // Esta función le quita 1 de vida al player al colisionar
+  // takeDamage() {
+  //   if (this.game.isCollision()) {
+  //     this.health = this.health - 1;
+  //     console.log(this.health)
+  //   }
+  // }
 }

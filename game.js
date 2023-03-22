@@ -49,7 +49,8 @@ const Game = {
       this.clear();
 
       this.drawAll();
-      this.checkEnemyStatus()
+      this.checkEnemyStatus();
+      this.checkPlayerStatus();
 
       // this.generateObstacles();
 
@@ -131,16 +132,29 @@ const Game = {
     clearInterval(this.interval);
   },
 
-//
+  checkPlayerStatus(){
+    if (this.player.health <= 0) {
+      this.gameOver();
+    }
+  },
+
+//Funciones para el enemy
   checkEnemyStatus(){
+
+    //Función para que el enemy muera al colisionar y vuelva a aparecer
+    if (this.isCollision()) {
+      this.player.health -= 50;
+      console.log(this.player.health)
+         //Para que pinte otro una vez pasado a undefined
+      this.enemy = new Enemy(this.ctx, this.width, this.height);
+      }
+
     if (this.enemy.posY + this.enemy.height >= window.innerHeight) {
       //Para que pinte otro una vez pasado a undefined
       this.enemy = new Enemy(this.ctx, this.width, this.height);
-
     }
   }
-  
-}
+  }
 
 // generar obstaculos
 // borrar obstaculos

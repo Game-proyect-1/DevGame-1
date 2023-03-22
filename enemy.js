@@ -80,9 +80,8 @@ class Enemy {
     }
     if (this.posX + this.width/1.8 >= rightGap) {
       this.posY += (this.velY*10);
-    }
-
-    
+    }    
 
 }
+     
 }
