@@ -17,12 +17,12 @@ class Bullets {
     this.radius = 10;
 
     this.velX = 10;
-    this.velY = 1;
+    this.velY = -41;
 
-    this.gravity = 1;
+    this.gravity = 10;
 
-    this.width = 100;
-    this.height = 100;
+    this.width = 50;
+    this.height = 50;
 
     this.image = new Image();
     this.image.src = "./img/sprites/2/fire.png";
@@ -48,24 +48,24 @@ class Bullets {
 
   move() {
     //Cuanto mayor el número que multiplica, más lejos llega
-    this.posX -= this.velX*5;
+    this.posX -= this.velX      ;
     this.posY += this.velY;
 
     this.velY += this.gravity;
 
     if (this.posY >= this.playerPosY0 + this.playerHeight) {
-      this.velY *= 0;
+      this.velY += -1;
 
-      this.posX += this.velX;
+      this.posX += this.velX*5;
       this.posY += this.velY;
 
       this.velY += this.gravity;
 
       // if (this.posX >= playerPosX && this.posX <= playerPosX + this.width && this.posY <= )
 
-       if (this.posY >= this.playerPosY0 + this.playerHeight) { // Rebote
-         this.velY *= 30;
-       }
+        // if (this.posY >= this.playerPosY0 + this.playerHeight) { // Rebote
+        //   this.velY *= 30;
+        // }
     }
 
   }
@@ -82,10 +82,12 @@ class Bullets {
 
   //Intentando borrar las bullets que no estén dentro del canvas
 
-
+// Esta función hace posible que las bullets se borren
   isCollision(posX, posY) { //colisión bullet que paso a game
     return (
-      this.posX - posX <= 50 && posX - this.posX <= 50 && this.posY >= posY
+      this.posX - posX <= 50 
+      && posX - this.posX <= 50 
+      && this.posY >= posY
     );
   }
 }

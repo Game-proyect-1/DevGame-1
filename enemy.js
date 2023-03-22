@@ -13,8 +13,11 @@ class Enemy {
     this.image.frames = 4;
     this.image.framesIndex = 0;
 
+    // //Booleano para saber si ha sido alcanzado por una bullet
+    // this.targeted = false;
+
     this.posX = (window.innerWidth*1.1) - window.innerWidth; //que empiece donde empieza la plataforma
-    this.posY = window.innerHeight/1.2 - 150; //encima de la plataforma
+    this.posY = window.innerHeight/1.2 - 150 ; //encima de la plataforma
     this.posY0 = this.posY;
     this.isMovingRight = false;
     this.isMovingLeft = false;

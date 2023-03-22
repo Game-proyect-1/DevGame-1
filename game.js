@@ -9,6 +9,9 @@ const Game = {
   player: undefined,
   enemy: undefined,
   platform: undefined,
+  bullets: undefined,
+  //Inicio score a 0 porque si lo pongo undefined, me da NaN
+  score: 0,
 
   keys: {
     jump: 38,
@@ -56,13 +59,6 @@ const Game = {
 
       // this.clearObstacles();
 
-      if (this.isCollision()) {
-        this.player.health--;
-        console.log(this.player.health)
-        if (this.player.health <= 0) {
-          this.gameOver();
-        }
-      }
     }, 1000 / this.FPS);
 
     this.clearBullets();
@@ -98,6 +94,9 @@ const Game = {
     this.player.bullets.map((bullet, index) => {
       if (bullet.isCollision(this.enemy.posX, this.enemy.posY)) {
         this.player.bullets.splice(index, 1);
+        this.enemy = new Enemy(this.ctx, this.width, this.height);
+        this.score += 100;
+        console.log(this.score);
       }
       //colisión console.log bullet, enemy
       // if (!bullet.isCollision(this.enemy.posX, this.enemy.posY)) {
@@ -115,7 +114,10 @@ const Game = {
 
   isCollision() {
     // colisión player y enemy
-    return (this.player.posX - this.enemy.posX <= 50 && this.enemy.posX - this.player.posX <= 50 && this.player.posY >= this.enemy.posY);
+    return (this.player.posX - this.enemy.posX <= 50 
+      && this.enemy.posX - this.player.posX <= 50 
+      && this.player.posY - this.enemy.posY <= 50
+      && this.enemy.posY - this.player.posY <= 50);
   },
 
   clearBullets() {
@@ -127,6 +129,16 @@ const Game = {
     });
 
   },
+  
+  //Función de colisión entre enemy y bullet
+  // isBulletCollision() {
+  //   return (this.player.posX - this.enemy.posX <= 50 
+  //     && this.enemy.posX - this.player.posX <= 50 
+  //     && this.player.posY - this.enemy.posY <= 50
+  //     && this.enemy.posY - this.player.posY <= 50);
+    
+  // },
+
   gameOver() {
     // .clearInterval
     clearInterval(this.interval);
@@ -145,6 +157,7 @@ const Game = {
     if (this.isCollision()) {
       this.player.health -= 50;
       console.log(this.player.health)
+      
          //Para que pinte otro una vez pasado a undefined
       this.enemy = new Enemy(this.ctx, this.width, this.height);
       }
@@ -155,9 +168,6 @@ const Game = {
     }
   }
   }
-
-// generar obstaculos
-// borrar obstaculos
 
 // contador vida player, sino hay colision y el enemigo sale del ancho de la
 //destructionEnemy

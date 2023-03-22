@@ -33,6 +33,10 @@ class Player {
     this.gravity = 1;
   }
 
+  healthBarBar() {
+    // ctx.fillText("this.health", this.posX, this.posY-100, this.width);
+  }	
+
   draw(framesCounter, interval) {
     //Aquí dibujar la barrita de vida encima del player
     this.ctx.drawImage(
@@ -104,7 +108,15 @@ class Player {
     this.bullets.push(bullet);
     bullet.draw();
   }
+
+  checkBulletCollision()  {
+    for (i = 0; i < this.bullets.length; i++) {
+      
+    }
+  }
+
   clearBullets() {
+    // console.log(this.bullets)
     this.bullets = this.bullets.filter((bullet) => {
       return bullet.posX >= 0;
     });
@@ -186,11 +198,8 @@ class Player {
 
   }
 
-  // Esta función le quita 1 de vida al player al colisionar
-  // takeDamage() {
-  //   if (this.game.isCollision()) {
-  //     this.health = this.health - 1;
-  //     console.log(this.health)
-  //   }
-  // }
+  healthBar(){
+
+  }
+
 }
