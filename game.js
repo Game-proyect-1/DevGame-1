@@ -54,6 +54,7 @@ const Game = {
       this.drawAll();
       this.checkEnemyStatus();
       this.checkPlayerStatus();
+      
 
       // this.generateObstacles();
 
@@ -82,7 +83,8 @@ const Game = {
 
   drawAll() {
     this.background.draw();
-
+    this.printScore();
+    this.printHealth();
     this.player.draw(this.framesCounter, this.interval);
     this.enemy.draw(this.framesCounter);
     
@@ -94,6 +96,7 @@ const Game = {
     this.player.bullets.map((bullet, index) => {
       if (bullet.isCollision(this.enemy.posX, this.enemy.posY)) {
         this.player.bullets.splice(index, 1);
+        //Con esto hacemos que reaparezca el enemy y sumamos el
         this.enemy = new Enemy(this.ctx, this.width, this.height);
         this.score += 100;
         console.log(this.score);
@@ -158,7 +161,7 @@ const Game = {
       this.player.health -= 50;
       console.log(this.player.health)
       
-         //Para que pinte otro una vez pasado a undefined
+      //Para que pinte otro una vez pasado a undefined
       this.enemy = new Enemy(this.ctx, this.width, this.height);
       }
 
@@ -166,7 +169,18 @@ const Game = {
       //Para que pinte otro una vez pasado a undefined
       this.enemy = new Enemy(this.ctx, this.width, this.height);
     }
+  },
+
+  printScore() {
+    this.ctx.font = '30px Arial';
+    this.ctx.fillText(`${this.score}`, 50, 40);
+  },
+
+  printHealth() {
+    this.ctx.font = "50px serif";
+    this.ctx.fillText(`${this.player.health}`, window.innerWidth - 100, 200);
   }
+  
   }
 
 // contador vida player, sino hay colision y el enemigo sale del ancho de la

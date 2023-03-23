@@ -14,10 +14,8 @@ class Bullets {
     this.playerPosY0 = playerPosY0;
     this.playerHeight = playerHeight;
 
-    this.radius = 10;
-
-    this.velX = 10;
-    this.velY = -41;
+    this.velX = 100;
+    this.velY = 10;
 
     this.gravity = 10;
 
