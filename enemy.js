@@ -8,13 +8,16 @@ class Enemy {
     this.width = 150;
     this.height = 150;
 
-    this.image = new Image();
-    this.image.src = "./img/sprites/1/Idle.png";
-    this.image.frames = 4;
-    this.image.framesIndex = 0;
+    // this.image = new Image();
+    // this.image.src = "./img/sprites/1/Idle.png";
+    // this.image.frames = 4;
+    // this.image.framesIndex = 0; CI
 
-    // //Booleano para saber si ha sido alcanzado por una bullet
-    // this.targeted = false;
+    this.image = new Image();
+    this.image.src = "./img/sprites juego/enemy/andar enemy.png";
+    this.image.frames = 16;
+    this.image.framesIndex = 0;
+    this.lives = 30;
 
     this.posX = (window.innerWidth*1.1) - window.innerWidth; //que empiece donde empieza la plataforma
     this.posY = window.innerHeight/1.2 - 150 ; //encima de la plataforma
@@ -22,12 +25,8 @@ class Enemy {
     this.isMovingRight = false;
     this.isMovingLeft = false;
 
-    // this.bullets = [];
 
-    //this.setListeners();
-    // this.velY = 2;
     this.velX = 2;
-    // this.gravity = 0.6;
   }
 
   draw(framesCounter) {
@@ -46,13 +45,8 @@ class Enemy {
     this.animate(framesCounter);
 
     this.move();
-
-    // this.bullets.forEach(function (bullet) {
-    //   bullet.draw();
-    // });
-
-    //     this.clearBullets();
   }
+
   animate(framesCounter) {
     if (framesCounter % 5 == 0) {
       this.image.framesIndex++;
@@ -62,8 +56,10 @@ class Enemy {
       this.image.framesIndex = 0;
     }
   }
+
+
   move() {
-    if (this.posY + this.width < this.posY0) {
+    if (this.posY + this.height <= this.posY0) {
       // Está saltando
       this.posY += this.velY;
       this.velY += this.gravity; //velocidad caida y frenado paulatino
@@ -73,7 +69,7 @@ class Enemy {
     }
 
     this.posX += 1;
-    if (this.posX >= this.gameW + this.width) {
+    if (this.posX >= rightGap) {
       this.posX = 0;
     }
 
@@ -86,5 +82,13 @@ class Enemy {
     }    
 
 }
+
+//CI
+// move() {
+//   this.posX += 2;
+//   if (this.posX + this.width >= this.gameWidth) {
+//     this.posX = 0;
+//   }
+// }
      
 }

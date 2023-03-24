@@ -58,7 +58,21 @@ const Game = {
 
       // this.generateObstacles();
 
-      // this.clearObstacles();
+      // this.clearObstacles(); CI
+      if (this.player.lifeTimeCount !== 0) {
+        this.player.lifeTimeCount--;
+      }
+
+      if (this.isCollision()) {
+        if (this.player.lives == 0) {
+          this.gameOver();
+        } else {
+          if (this.player.lifeTimeCount == 0) {
+            this.player.lives--;
+            this.player.lifeTimeCount = 30;
+          }
+        }
+      }
 
     }, 1000 / this.FPS);
 
@@ -87,9 +101,6 @@ const Game = {
     this.printHealth();
     this.player.draw(this.framesCounter, this.interval);
     this.enemy.draw(this.framesCounter);
-    
-    // Esto sólo acelera al enemy, no pinta otro --> setInterval(this.enemy.draw(this.framesCounter), 1000);
-    // this.bullets.draw();
 
     this.platform.draw();
 
@@ -142,8 +153,16 @@ const Game = {
     
   // },
 
+  //CI
   gameOver() {
     // .clearInterval
+    this.ctx.drawImage(
+      this.player.imageGameOver,
+      this.width / 2 - 250,
+      200,
+      500,
+      250
+    );
     clearInterval(this.interval);
   },
 
@@ -173,16 +192,14 @@ const Game = {
 
   printScore() {
     this.ctx.font = '30px Arial';
-    this.ctx.fillText(`${this.score}`, 50, 40);
+    this.ctx.fillText(`SCORE:`, 50, 40);
+    this.ctx.fillText(`${this.score}`, 90, 80);
   },
 
   printHealth() {
-    this.ctx.font = "50px serif";
-    this.ctx.fillText(`${this.player.health}`, window.innerWidth - 100, 200);
+    this.ctx.font = "30px Arial";
+    this.ctx.fillText(`HEALTH:`, 200, 40);
+    this.ctx.fillText(`${this.player.health}`, 230, 80);
   }
   
   }
-
-// contador vida player, sino hay colision y el enemigo sale del ancho de la
-//destructionEnemy
-// podemos meter función , colisión lineas extra arriba por ejemplo

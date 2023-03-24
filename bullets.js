@@ -4,7 +4,10 @@ class Bullets {
     playerPosX,
     playerPosY,
     playerPosY0,
-    playerHeight
+    playerHeight,
+    //CI
+    isMovingLeft,
+    isMovingRight
   ) {
     this.ctx = ctx;
 
@@ -14,13 +17,24 @@ class Bullets {
     this.playerPosY0 = playerPosY0;
     this.playerHeight = playerHeight;
 
-    this.velX = 100;
-    this.velY = 10;
+    //CI
+    this.radius = 10;
 
-    this.gravity = 10;
+    // this.velX = 100;
+    // this.velY = 10;
+
+    // this.gravity = 10; CI
+    this.velX = 4;
+    this.velY = 4;
+
+    this.gravity = 0.01;
 
     this.width = 50;
     this.height = 50;
+
+    //CI
+    this.isMovingRight = isMovingRight;
+    this.isMovingLeft = isMovingLeft;
 
     this.image = new Image();
     this.image.src = "./img/sprites/2/fire.png";
@@ -44,28 +58,44 @@ class Bullets {
     this.move();
   }
 
+  // move() {
+  //   //Cuanto mayor el número que multiplica, más lejos llega
+  //   this.posX -= this.velX      ;
+  //   this.posY += this.velY;
+
+  //   this.velY += this.gravity;
+
+  //   if (this.posY >= this.playerPosY0 + this.playerHeight) {
+  //     this.velY += -1;
+
+  //     this.posX += this.velX*5;
+  //     this.posY += this.velY;
+
+  //     this.velY += this.gravity;
+
+  //     // if (this.posX >= playerPosX && this.posX <= playerPosX + this.width && this.posY <= )
+
+  //       // if (this.posY >= this.playerPosY0 + this.playerHeight) { // Rebote
+  //       //   this.velY *= 30;
+  //       // }
+  //   }
+
+  // } CI
   move() {
-    //Cuanto mayor el número que multiplica, más lejos llega
-    this.posX -= this.velX      ;
-    this.posY += this.velY;
-
-    this.velY += this.gravity;
-
-    if (this.posY >= this.playerPosY0 + this.playerHeight) {
-      this.velY += -1;
-
-      this.posX += this.velX*5;
-      this.posY += this.velY;
-
-      this.velY += this.gravity;
-
-      // if (this.posX >= playerPosX && this.posX <= playerPosX + this.width && this.posY <= )
-
-        // if (this.posY >= this.playerPosY0 + this.playerHeight) { // Rebote
-        //   this.velY *= 30;
-        // }
+    
+    if (this.isMovingRight) {
+      this.posX += this.velX;
+    } 
+    if (this.isMovingLeft) {
+      this.posX -= this.velX;
     }
 
+    this.posY -= this.velY;
+    this.velY += this.gravity;
+
+     if (this.posY < this.playerPosY0) {
+       this.gravity -= 0.02;
+     } 
   }
 
   animate(framesCounter) {
@@ -88,4 +118,11 @@ class Bullets {
       && this.posY >= posY
     );
   }
+
+  //CI
+  // isCollisionBullet(posX, posY) {
+  //   return (
+  //     this.posX - posX <= 50 && posX - this.posX <= 50 && this.posY >= posY
+  //   );
+  // }
 }

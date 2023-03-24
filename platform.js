@@ -28,5 +28,6 @@ class HalfPlatform extends Platform {
   }
 }
 
+//Variables para determinar el hueco entre plataforma y window.innerWidth
 const leftGap = (window.innerWidth*1.1) - window.innerWidth;
 const rightGap = (window.innerWidth*1.1) - window.innerWidth + window.innerWidth/1.3;
